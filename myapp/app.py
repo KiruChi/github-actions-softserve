@@ -3,6 +3,5 @@ def add(a, b):
     return a + b
 
 def subtract(a, b):
-    # """Функція віднімання"""
-    # return a - b
-    return a + b
+    """Функція віднімання"""
+    return a - b
