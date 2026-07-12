@@ -5,4 +5,4 @@ def add(a, b):
 def subtract(a, b):
     # """Функція віднімання"""
     # return a - b
-    pass
+    return a + b
