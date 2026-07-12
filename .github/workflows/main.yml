@@ -28,4 +28,4 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: report
-          path: result/
+          path: htmlcov/
