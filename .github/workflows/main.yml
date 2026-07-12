@@ -5,10 +5,12 @@ on:
     branches:
       - develop
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -29,3 +31,27 @@ jobs:
         with:
           name: report
           path: htmlcov/
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Add Badge
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ! grep -q "badge.svg" README.md; then
+            sed -i '1i ![Test Workflow](https://github.com/${{ github.repository }}/actions/workflows/main.yml/badge.svg)\n' README.md
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add README.md
+            git commit -m "Update README with badge"
+            git push
+          else
+            echo "Badge already exists. Skipping."
+          fi
