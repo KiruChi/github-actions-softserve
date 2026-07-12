@@ -5,7 +5,3 @@ def add(a, b):
 def subtract(a, b):
     """Функція віднімання"""
     return a - b
-
-def multiple(a, b):
-    """Функція множення"""
-    return a * b
